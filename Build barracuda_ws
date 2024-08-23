@@ -1,0 +1,160 @@
+##### ROS Installation #####
+https://wiki.ros.org/noetic/Installation/Ubuntu
+
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+sudo apt install curl # if you haven't already installed curl
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+sudo apt update
+sudo apt install ros-noetic-desktop-full
+apt search ros-noetic
+
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo apt install python3-rosdep
+sudo rosdep init
+rosdep update
+
+
+
+##### Make a Catkin Work Space #####
+
+mkdir -p ~/barracuda_ws/src
+cd ~/barracuda_ws/
+catkin_make
+
+cd ~/
+echo "source ~/barracuda_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+echo "cd ~/barracuda_ws/" >> ~/.bashrc
+
+
+
+##### ROS Package Link #####
+https://index.ros.org/
+
+
+
+##### Install ROS Serial Package #####
+https://index.ros.org/p/rosserial/github-ros-drivers-rosserial/#noetic
+
+sudo apt-get install ros-${ROS_DISTRO}-rosserial-arduino
+sudo apt-get install ros-${ROS_DISTRO}-rosserial
+
+cd <ws>/src
+git clone https://github.com/ros-drivers/rosserial.git
+
+cd <ws>
+catkin_make
+catkin_make install
+
+
+
+##### Install ROS PID #####
+https://index.ros.org/p/pid/bitbucket-AndyZe-pid/#noetic
+
+sudo apt-get install ros-noetic-pid
+
+cd <ws>/src
+git clone https://bitbucket.org/AndyZe/pid.git
+
+cd <ws>
+catkin_make
+catkin_make install
+
+
+
+##### Install ROS Bridge Server #####
+https://index.ros.org/p/rosbridge_server/github-RobotWebTools-rosbridge_suite/#noetic
+
+sudo apt-get install ros-noetic-rosbridge-server
+
+cd <ws>/src
+git clone --branch=ros1 --single-branch https://github.com/RobotWebTools/rosbridge_suite.git
+
+cd <ws>
+catkin_make
+catkin_make install
+
+
+
+##### Install Python Dependencies #####
+
+sudo apt-get install python3-pip
+pip install opencv-python
+pip install numpy
+pip install websocket
+pip install websocket-client
+
+
+
+##### Create Package #####
+
+cd <ws>/src
+catkin_create_pkg local_strategy rospy geometry_msgs std_msgs
+cd <ws>
+catkin_make
+rospack depends1 local_strategy
+
+roscd local_strategy
+# Open package.xml
+<?xml version="1.0"?>
+<package format="2">
+  <name>local_strategy</name>
+  <version>0.0.0</version>
+  <description>The local_strategy package</description>
+
+  <maintainer email="wld822@gmail.com">wildan_w_m</maintainer>
+  <license>TODO</license>
+  <url type="website">https://github.com/EWS-Barracuda-Undip</url>
+  <author email="undipbarracuda@gmail.com">EWS-Barracuda-UNDIP</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
+
+mkdir scripts
+cd scripts
+touch regional.py
+chmod +x regional.py
+# Edit local_strategy.py
+
+# Open CMakeLists.txt, uncomment & add the following
+catkin_install_python(PROGRAMS
+  scripts/regional.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
+
+##### ROS Serial Problem #####
+
+# open file arduino -> examples -> ros_lib -> pubsub
+ls /dev/ttyACM0
+
+sudo adduser my_user_name dialout
+
+roscore
+rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=57600
+
+
+
