@@ -1,0 +1,20 @@
+<launch>
+
+<!--Communication-->
+    <node pkg="rosserial_python" name="serial_node" type="serial_node.py">
+        <param name="port" type="string" value="/dev/ttyACM0"/>
+        <param name="baud" type="int" value="57600"/>
+    </node>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+        <arg name="port" value="9090"/>
+    </include>
+
+<!--Local Strategy-->
+    <node pkg="local_strategy" name="local_strategy_node" type="nasional_caca.py" ns="local_strategy" output="screen"/>
+    <node pkg="local_strategy" name="rosbridge_friend_node" type="rosbridge_friend.py" ns="local_strategy" output="screen">
+        <param name="ws_url" value="ws://192.168.132.51:9090/"/>
+        <param name="jersey_number" value="2"/>
+    </node>
+
+</launch>

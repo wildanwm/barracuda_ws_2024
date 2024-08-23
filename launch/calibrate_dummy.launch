@@ -1,0 +1,35 @@
+<launch>
+
+<!--Computer Vision-->
+
+    <node pkg="com_vision" name="hsv_calibrate_dummy" type="hsv_calibrate_dummy.py" ns="com_vision/front_cam" output="screen">
+        <param name="cam_index" value="0"/>
+        <param name="flip_frame" value="True"/>
+        <param name="flip_code" value="-1"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="hue_min_black" value="5"/>
+        <param name="hue_max_black" value="190"/>
+        <param name="sat_min_black" value="0"/>
+        <param name="sat_max_black" value="190"/>
+        <param name="val_min_black" value="40"/>
+        <param name="val_max_black" value="80"/>
+    </node>
+
+    <node pkg="com_vision" name="hsv_calibrate_dummy" type="hsv_calibrate_dummy.py" ns="com_vision/omni_cam" output="screen">
+        <param name="cam_index" value="2"/>
+        <param name="flip_frame" value="True"/>
+        <param name="flip_code" value="1"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="hue_min_black" value="5"/>
+        <param name="hue_max_black" value="190"/>
+        <param name="sat_min_black" value="0"/>
+        <param name="sat_max_black" value="190"/>
+        <param name="val_min_black" value="40"/>
+        <param name="val_max_black" value="80"/>
+    </node>
+
+</launch>

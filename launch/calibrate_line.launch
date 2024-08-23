@@ -1,0 +1,35 @@
+<launch>
+
+<!--Computer Vision-->
+
+    <node pkg="com_vision" name="hsv_calibrate_line" type="hsv_calibrate_line.py" ns="com_vision/front_cam" output="screen">
+        <param name="cam_index" value="0"/>
+        <param name="flip_frame" value="True"/>
+        <param name="flip_code" value="-1"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="hue_min_white" value="0"/>
+        <param name="hue_max_white" value="180"/>
+        <param name="sat_min_white" value="0"/>
+        <param name="sat_max_white" value="25"/>
+        <param name="val_min_white" value="200"/>
+        <param name="val_max_white" value="255"/>
+    </node>
+
+    <node pkg="com_vision" name="hsv_calibrate_line" type="hsv_calibrate_line.py" ns="com_vision/omni_cam" output="screen">
+        <param name="cam_index" value="2"/>
+        <param name="flip_frame" value="True"/>
+        <param name="flip_code" value="1"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="hue_min_white" value="0"/>
+        <param name="hue_max_white" value="180"/>
+        <param name="sat_min_white" value="0"/>
+        <param name="sat_max_white" value="25"/>
+        <param name="val_min_white" value="200"/>
+        <param name="val_max_white" value="255"/>
+    </node>
+
+</launch>

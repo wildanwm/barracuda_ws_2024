@@ -1,0 +1,35 @@
+<launch>
+
+<!--Computer Vision-->
+
+    <node pkg="com_vision" name="hsv_calibrate_ball" type="hsv_calibrate_ball.py" ns="com_vision/front_cam" output="screen">
+        <param name="cam_index" value="0"/>
+        <param name="flip_frame" value="True"/>
+        <param name="flip_code" value="-1"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="hue_min" value="5"/>
+        <param name="hue_max" value="15"/>
+        <param name="sat_min" value="100"/>
+        <param name="sat_max" value="255"/>
+        <param name="val_min" value="100"/>
+        <param name="val_max" value="255"/>
+    </node>
+
+    <node pkg="com_vision" name="hsv_calibrate_ball" type="hsv_calibrate_ball.py" ns="com_vision/omni_cam" output="screen">
+        <param name="cam_index" value="2"/>
+        <param name="flip_frame" value="True"/>
+        <param name="flip_code" value="1"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="hue_min" value="5"/>
+        <param name="hue_max" value="15"/>
+        <param name="sat_min" value="100"/>
+        <param name="sat_max" value="255"/>
+        <param name="val_min" value="100"/>
+        <param name="val_max" value="255"/>
+    </node>
+
+</launch>

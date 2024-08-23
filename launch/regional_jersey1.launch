@@ -1,0 +1,120 @@
+<launch>
+
+<!--Communication-->
+    <node pkg="rosserial_python" name="serial_node" type="serial_node.py">
+        <param name="port" type="string" value="/dev/ttyACM0"/>
+        <param name="baud" type="int" value="57600"/>
+    </node>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+        <arg name="port" value="9090"/>
+    </include>
+
+<!--Local Strategy-->
+    <node pkg="local_strategy" name="local_strategy_node" type="regional_jersey1.py" ns="local_strategy" output="screen"/>
+    <node pkg="local_strategy" name="rosbridge_friend_node" type="rosbridge_friend.py" ns="local_strategy" output="screen">
+        <param name="ws_url" value="ws://192.168.132.135:9090/"/>
+        <param name="jersey_number" value="1"/>
+    </node>
+
+<!--Action Executor-->
+    <node pkg="action_executor" name="action_executor_node" type="action_executor.py" ns="action_executor" output="screen"/>
+
+<!--Robot Control-->
+    <node pkg="robot_control" name="pose_control_node" type="pose_control.py" ns="robot_control/pose_control" output="screen"/>
+
+    <node pkg="robot_control" name="ball_control_node" type="ball_control.py" ns="robot_control/ball_control" output="screen">
+        <param name="front_cam_2m" value="0.74"/>
+        <param name="front_cam_1m" value="0.64"/>
+        <param name="front_cam_05m" value="0.48"/>
+
+        <param name="omni_cam_2m" value="0.57"/>
+        <param name="omni_cam_1m" value="0.49"/>
+        <param name="omni_cam_05m" value="0.38"/>
+    </node>
+
+<!--Computer Vision-->
+    <node pkg="com_vision" name="cv_hsv_ball_node" type="cv_hsv.py" ns="com_vision/front_cam">
+        <param name="cam_index" value="0"/>
+        <param name="flip_frame" value="False"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="x_offset" value="-5"/>
+        <param name="y_offset" value="-165"/>
+
+        <!-- <param name="hue_min" value="0"/>
+        <param name="hue_max" value="11"/>
+        <param name="sat_min" value="165"/>
+        <param name="sat_max" value="255"/>
+        <param name="val_min" value="140"/>
+        <param name="val_max" value="255"/> -->
+
+        <!--Init-->
+
+        <param name="init" value="True"/>
+
+        <!-- <param name="hue_min_white" value="0"/>
+        <param name="hue_max_white" value="180"/>
+        <param name="sat_min_white" value="0"/>
+        <param name="sat_max_white" value="25"/>
+        <param name="val_min_white" value="200"/>
+        <param name="val_max_white" value="255"/>
+
+        <param name="init_v1" value="160"/>
+        <param name="init_v2" value="100"/>
+        <param name="init_h1" value="85"/>
+        <param name="init_h2" value="-85"/>
+        <param name="init_v3" value="212"/>
+        <param name="init_v4" value="-212"/> -->
+        <param name="init_slope" value="3"/>
+
+        <!--Dummy-->
+
+        <param name="dummy" value="True"/>
+
+        <!-- <param name="hue_min_black" value="5"/>
+        <param name="hue_max_black" value="190"/>
+        <param name="sat_min_black" value="0"/>
+        <param name="sat_max_black" value="190"/>
+        <param name="val_min_black" value="40"/>
+        <param name="val_max_black" value="80"/> -->
+
+        <param name="crop_side" value="100"/>
+        <param name="crop_top" value="50"/>
+        <param name="crop_bottom" value="150"/>
+    </node>
+
+    <node pkg="com_vision" name="cv_hsv_ball_node" type="cv_hsv.py" ns="com_vision/omni_cam">
+        <param name="cam_index" value="2"/>
+        <param name="flip_frame" value="True"/>
+        <param name="exposure_val" value="0"/>
+        <param name="blur_val" value="17"/>
+
+        <param name="x_offset" value="-15"/>
+        <param name="y_offset" value="-55"/>
+
+        <!-- <param name="hue_min" value="4"/>
+        <param name="hue_max" value="14"/>
+        <param name="sat_min" value="108"/>
+        <param name="sat_max" value="255"/>
+        <param name="val_min" value="160"/>
+        <param name="val_max" value="255"/> -->
+
+        <!--Dummy-->
+
+        <param name="dummy" value="True"/>
+
+        <param name="hue_min_black" value="5"/>
+        <param name="hue_max_black" value="190"/>
+        <param name="sat_min_black" value="0"/>
+        <param name="sat_max_black" value="190"/>
+        <param name="val_min_black" value="100"/>
+        <param name="val_max_black" value="140"/>
+
+        <param name="crop_side" value="250"/>
+        <param name="crop_top" value="360"/>
+        <param name="crop_bottom" value="50"/>
+    </node>
+
+</launch>

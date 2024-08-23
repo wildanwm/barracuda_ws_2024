@@ -1,0 +1,42 @@
+{'S', "STOP"},                      -> Stop = 0
+{'s', "START"},                     -> OnPlay = 1
+{'W', "WELCOME"},
+{'w', "WORLD_STATE"},
+{'Z', "RESET"},
+{'U', "TESTMODE_ON" },
+{'u', "TESTMODE_OFF"},
+{'y', "YELLOW_CARD_MAGENTA"},
+{'Y', "YELLOW_CARD_CYAN"},
+{'r', "RED_CARD_MAGENTA"},
+{'R', "RED_CARD_CYAN"},
+{'b', "DOUBLE_YELLOW_IN_MAGENTA"},
+{'B', "DOUBLE_YELLOW_IN_CYAN"},
+{'1', "FIRST_HALF"},
+{'2', "SECOND_HALF"},
+{'3', "FIRST_HALF_OVERTIME"},
+{'4', "SECOND_HALF_OVERTIME"},
+{'h', "HALF_TIME"},
+{'e', "END_GAME"},
+{'z', "GAMEOVER"},
+{'L', "PARKING"},                   -> StartPosition = 2
+{'a', "GOAL_MAGENTA"},
+{'A', "GOAL_CYAN"},
+{'d', "SUBGOAL_MAGENTA"},
+{'D', "SUBGOAL_CYAN"},
+{'k', "KICKOFF_MAGENTA"},           -> KickOffHome = 4 / KickOffAway = 5
+{'K', "KICKOFF_CYAN"},              -> KickOffHome = 4 / KickOffAway = 5
+{'f', "FREEKICK_MAGENTA"},          -> FreeKickHome = 8 / FreeKickAway = 9
+{'F', "FREEKICK_CYAN"},             -> FreeKickHome = 8 / FreeKickAway = 9
+{'g', "GOALKICK_MAGENTA"},          -> GoalKickHome = 6 / GoalKickAway = 7
+{'G', "GOALKICK_CYAN"},             -> GoalKickHome = 6 / GoalKickAway = 7
+{'t', "THROWIN_MAGENTA"},           -> ThrowInHome = 14 / ThrowInAway = 15
+{'T', "THROWIN_CYAN"},              -> ThrowInHome = 14 / ThrowInAway = 15
+{'c', "CORNER_MAGENTA"},            -> CornerHome = 10 / CornerAway = 11
+{'C', "CORNER_CYAN"},               -> CornerHome = 10 / CornerAway = 11
+{'p', "PENALTY_MAGENTA"},           -> PenaltyHome = 12 / PenaltyAway = 13
+{'P', "PENALTY_CYAN"},              -> PenaltyHome = 12 / PenaltyAway = 13
+{'N', "DROPPED_BALL"},              -> DropBall = 3
+{'o', "REPAIR_OUT_MAGENTA"},
+{'O', "REPAIR_OUT_CYAN"},
+{'i', "REPAIR_IN_MAGENTA"},
+{'I', "REPAIR_IN_CYAN"}
